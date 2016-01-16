@@ -7,7 +7,7 @@ REGISTRY=microhq
 
 # Used to rebuild all the things
 
-find * -type d -maxdepth 1 -print | while read dir; do
+find * -type d -maxdepth 0 -print | while read dir; do
 	if [ ! -f $dir/Dockerfile ]; then
 		continue
 	fi
