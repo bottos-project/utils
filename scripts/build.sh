@@ -12,7 +12,14 @@ find * -type d -maxdepth 0 -print | while read dir; do
 		continue
 	fi
 
+	if [ -f $dir/.skip ]; then
+		continue
+	fi
+
 	pushd $dir >/dev/null
+
+	# test
+	go test -v ./...
 
 	# build static binary
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-w' -o $dir ./main.go
@@ -22,6 +29,9 @@ find * -type d -maxdepth 0 -print | while read dir; do
 
 	# push docker image
 	docker push $REGISTRY/$dir
+
+	# remove binary
+	rm $dir
 
 	popd >/dev/null
 done
