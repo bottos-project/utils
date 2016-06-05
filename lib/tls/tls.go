@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func Certificate(host string) (tls.Certificate, error) {
+func Certificate(host ...string) (tls.Certificate, error) {
 	priv, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
 		return tls.Certificate{}, err
@@ -42,10 +42,12 @@ func Certificate(host string) (tls.Certificate, error) {
 		BasicConstraintsValid: true,
 	}
 
-	if ip := net.ParseIP(host); ip != nil {
-		template.IPAddresses = append(template.IPAddresses, ip)
-	} else {
-		template.DNSNames = append(template.DNSNames, host)
+	for _, h := range host {
+		if ip := net.ParseIP(h); ip != nil {
+			template.IPAddresses = append(template.IPAddresses, ip)
+		} else {
+			template.DNSNames = append(template.DNSNames, h)
+		}
 	}
 
 	template.IsCA = true
