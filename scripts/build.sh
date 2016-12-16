@@ -11,15 +11,15 @@ build() {
 	local dir=$1
 
 	if [ -z "$dir" ] || [ ! -d "$dir" ]; then
-		return 1
+		return
 	fi
 
 	if [ ! -f $dir/Dockerfile ]; then
-		return 1
+		return
 	fi
 
 	if [ -f $dir/.skip ]; then
-		return 1
+		return
 	fi
 
 	pushd $dir >/dev/null
@@ -51,4 +51,5 @@ fi
 # build all the things
 find * -type d -maxdepth 0 -print | while read dir; do
 	build "$dir"
+
 done
