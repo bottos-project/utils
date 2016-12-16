@@ -7,13 +7,19 @@ REGISTRY=microhq
 
 # Used to rebuild all the things
 
-find * -type d -maxdepth 0 -print | while read dir; do
+build() {
+	local dir=$1
+
+	if [ -z "$dir" ] || [ ! -d "$dir" ]; then
+		return 1
+	fi
+
 	if [ ! -f $dir/Dockerfile ]; then
-		continue
+		return 1
 	fi
 
 	if [ -f $dir/.skip ]; then
-		continue
+		return 1
 	fi
 
 	pushd $dir >/dev/null
@@ -34,4 +40,15 @@ find * -type d -maxdepth 0 -print | while read dir; do
 	rm $dir
 
 	popd >/dev/null
+}
+
+# build specified dir
+if [ -n "$1" ]; then
+	build $1
+	exit $?
+fi
+
+# build all the things
+find * -type d -maxdepth 0 -print | while read dir; do
+	build "$dir"
 done
