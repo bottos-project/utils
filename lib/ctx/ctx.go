@@ -1,11 +1,11 @@
 package ctx
 
 import (
+	"context"
 	"net/http"
 	"strings"
 
 	"github.com/micro/go-micro/metadata"
-	"golang.org/x/net/context"
 )
 
 func FromRequest(r *http.Request) context.Context {
