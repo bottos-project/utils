@@ -63,4 +63,25 @@ func TestRoundTripper(t *testing.T) {
 	if string(b) != "hello world" {
 		t.Fatal("response is", string(b))
 	}
+
+	// test http request
+	c := &http.Client{
+		Transport: rt,
+	}
+
+	rsp, err := c.Get("http://example.com")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	b, err = ioutil.ReadAll(rsp.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rsp.Body.Close()
+
+	if string(b) != "hello world" {
+		t.Fatal("response is", string(b))
+	}
+
 }
