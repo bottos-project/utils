@@ -1,4 +1,4 @@
-# Misc
+# Util
 
 A place for miscellaneous utilities and things
 
