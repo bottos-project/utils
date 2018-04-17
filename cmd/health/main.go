@@ -53,7 +53,7 @@ func main() {
 		req := client.NewRequest(serverName, "Debug.Health", &proto.HealthRequest{})
 		rsp := &proto.HealthResponse{}
 
-		err := client.CallRemote(context.TODO(), serverAddress, req, rsp)
+		err := client.Call(context.TODO(), req, rsp, client.WithAddress(serverAddress))
 		if err != nil || rsp.Status != "ok" {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprint(w, "NOT_HEALTHY")
