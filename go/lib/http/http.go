@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/micro/go-micro/registry"
-	"github.com/micro/go-micro/selector"
+	"github.com/bottos-project/go-micro/registry"
+	"github.com/bottos-project/go-micro/selector"
 )
 
 func NewRoundTripper(opts ...Option) http.RoundTripper {

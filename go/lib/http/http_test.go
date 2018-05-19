@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/micro/go-micro/registry"
-	"github.com/micro/go-micro/registry/mock"
+	"github.com/bottos-project/go-micro/registry"
+	"github.com/bottos-project/go-micro/registry/mock"
 )
 
 func TestRoundTripper(t *testing.T) {
